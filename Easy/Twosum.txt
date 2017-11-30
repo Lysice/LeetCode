@@ -29,6 +29,7 @@ class Solution {
 
     }
 }
+时间复杂度为O(n^2)
 (2) HashMap的方法
 import java.util.HashMap;
 class Solution {
@@ -38,7 +39,6 @@ class Solution {
         for(int i = 0; i < nums.length; i ++) {
             map.put(nums[i], i);
         }
-
 
         for(int j = 0; j < nums.length; j ++) {
 			if(map.containsKey(target - nums[j])) {
@@ -53,6 +53,7 @@ class Solution {
         return res;
     }
 }
+时间复杂度为 O(2n)
 
 2.1 优化以上代码
 import java.util.HashMap;
@@ -79,3 +80,4 @@ class Solution {
 
     }
 }
+时间复杂度为O(n) (抛除map插入数据的过程)
