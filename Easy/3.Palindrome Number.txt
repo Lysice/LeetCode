@@ -1,7 +1,78 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: sudai
- * Date: 17-11-30
- * Time: 下午5:56
- */
+Determine whether an integer is a palindrome. Do this without extra space.
+负数是否是回文数？（ie，1）
+
+如果您正在考虑将整数转换为字符串，请注意使用额外空间的限制。
+
+您还可以尝试反转整数。但是，如果您已经解决了“反向整数”这个问题，那么您知道反向整数可能会溢出。你将如何处理这种情况？
+
+有一个更通用的方法来解决这个问题。
+(1)字符串反转方法
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x < 0) {
+            return false;
+        }
+        String str1 = x + "";
+        StringBuilder sb = new StringBuilder(str1);
+        String str2 = sb.reverse().toString();
+        if(str1.equals(str2)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+(2)数字反转方法 判断数字是否相等
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x < 0) {
+            return false;
+        }
+        long result = 0;
+        while(x != 0) {
+            int tail = x % 10;
+            result = result * 10 + tail;
+            x = x /10;
+        }
+
+        if(result == x) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+一开始用int 但是int的存储范围-2^31 - 2^31 - 1 溢出.因此采用long
+
+(3)比较数字位法
+class Solution {
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+        int original = x;
+
+        int divide = 1;
+        while (original / 10 > 0) {
+            divide *= 10;
+            original = original / 10;
+        }
+
+        while (x > 0) {
+            int large = x / divide;
+            int small = x % 10;
+            if(large != small) {
+                return false;
+            }
+            x = (x - large * divide) / 10;
+            divide = divide / 100;
+        }
+
+        return true;
+    }
+}
+除负数与0结尾的数字外,其他均需要处理.
+处理方法:
+loop
+    首位!=末位? return false; : continue;
+end
